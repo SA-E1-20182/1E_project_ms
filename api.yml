@@ -1,0 +1,182 @@
+#Test with: http://editor.swagger.io/
+
+swagger: '2.0'
+info:
+  version: 1.0.0
+  title: Krajono - meta_ms
+  description: Microservicio para recuperar la información general de un proyecto en Kranojo.
+  license:
+    name: Versioning
+host: 192.168.99.101:3000
+basePath: /api/projects
+schemes:
+  - http
+consumes:
+  - application/json
+produces:
+  - application/json
+paths:
+  /projects:
+    post:
+      summary: Crear un nuevo proyecto
+      operationId: createProject
+      parameters:
+        - name: project
+          in: body
+          required: true
+          description: Crear un nuevo proyecto
+          schema:
+            $ref: '#/definitions/ProjectInput'
+      responses:
+        '201':
+          description: Created
+        '400':
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/ErrorModel'
+    get:
+      summary: Returns all versions and projects for user 
+      operationId: getAl Projects
+      responses:
+        '200':
+          description: Ok
+          schema:
+            $ref: '#/definitions/ProjectList'
+        '406':
+          description: Not Acceptable (Invalid Params)
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/ErrorModel'
+
+  /project/{code}:
+    get:
+      summary: Returns a Project with the given code
+      operationId: ge ProjectByCode
+      parameters:
+        - name: code
+          in: path
+          description: The code of the Project to be returned
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: Ok
+          schema:
+            $ref: '#/definitions/Project'
+        '404':
+          description: Not Found
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '406':
+            description: Not Acceptable (Invalid Params)
+            schema:
+              $ref: '#/definitions/ErrorModel'
+        '500':
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/ErrorModel'
+    
+    put:
+      summary: Editar un nuevo proyecto
+      operationId: updateProject
+      parameters:
+        - name: code
+          in: path
+          description: The code of the Project to be updated
+          required: true
+          type: integer
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '500':
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/ErrorModel'
+    
+    delete:
+      summary: Delete a project with a given id
+      operationId: deleteProject
+      parameters:
+        - name: code
+          in: path
+          description: The code of the Project to be deleted
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: Ok
+        '404':
+          description: Not Found
+          schema:
+            $ref: '#/definitions/ErrorModel'
+        '500':
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/ErrorModel'
+
+    
+definitions:
+  # Project
+  Project:
+    type: object
+    properties:
+      id:
+        type: integer
+      name:
+        type: string
+      description:
+        type: string
+      created_at:
+        type: string
+      total_pages:
+        type: integer
+      author_id:
+        type: string
+      current_version_id:
+        type: string
+      
+        
+  ProjectInput:
+    type: object
+    properties:
+      name:
+        type: string
+      description:
+        type: string
+      genre:
+        type: string
+        
+  ProjectList:
+    type: object
+    required:
+      - data
+    properties:
+      data:
+        type: array
+        items:
+          $ref: '#/definitions/Project'
+
+# Errors
+  ErrorModel:
+    type: object
+    required:
+      - message
+      - code
+    properties:
+      message:
+        type: string
+      code:
+        type: number
+      description:
+        type: object
