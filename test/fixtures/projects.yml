@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  description: MyString
+  genre: MyString
+  created_at: 2018-10-03
+  total_pages: 1
+  author_id: MyString
+  current_version_id: MyString
+
+two:
+  name: MyString
+  description: MyString
+  genre: MyString
+  created_at: 2018-10-03
+  total_pages: 1
+  author_id: MyString
+  current_version_id: MyString

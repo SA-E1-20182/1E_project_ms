@@ -23,7 +23,9 @@ default: &default
 
 development:
   <<: *default
-  database: other_meta_ms_development
+  database: meta_db
+  username: jdnietov
+  password: password
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
