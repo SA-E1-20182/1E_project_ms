@@ -1,24 +1,22 @@
-# README
+# Krajono - meta-ms microservice
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Microservice that serves information about the projects in the platform.
 
-Things you may want to cover:
+## Usage
 
-* Ruby version
+Check the `api.yml` file for info on how to consume this API.
 
-* System dependencies
+## Deployment
 
-* Configuration
+On a Docker container built on a Rancher image,
 
-* Database creation
+```sh
+docker-compose build
+docker-compose up
+```
+If it's the first time you're deploying this app in your machine, create the database with:
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+```sh
+docker-compose run meta-ms rake db:create
+docker-compose run meta-ms rake db:migrate
+```
