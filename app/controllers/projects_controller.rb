@@ -9,11 +9,10 @@ class ProjectsController < ApplicationController
 
   # POST /projects
   def create
-    @project = Project.new(params.require(:project).permit(:name, :description, :genre))
+    @project = Project.new(params.require(:project).permit(:name, :description, :genre, :author_id))
     @project.created_at = Time.now
     @project.total_pages = 0
-    @project.author_id = "author_id"
-    @project.current_version_id = "current_version_id"
+    @project.current_version_id = "blank"
     @project.save
 
     json_response(@project, :created)
