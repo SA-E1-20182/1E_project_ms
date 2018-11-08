@@ -9,7 +9,7 @@ class ProjectsController < ApplicationController
 
   # POST /projects
   def create
-    @project = Project.new(params.require(:project).permit(:name, :description, :genre, :author_id))
+    @project = Project.new(params.require(:project).permit(:name, :description, :genre, :cover_url, :author_id))
     @project.created_at = Time.now
     @project.total_pages = 0
     @project.current_version_id = "blank"
@@ -39,7 +39,7 @@ class ProjectsController < ApplicationController
 
   def project_params
     # whitelist params
-    params.permit(:name, :description, :genre)
+    params.permit(:name, :description, :genre, :cover_url)
   end
 
   def set_project
