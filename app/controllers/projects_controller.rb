@@ -35,6 +35,12 @@ class ProjectsController < ApplicationController
     head :no_content
   end
 
+  # PUT /projects/:id/version
+  def updateVersion
+    @project = Project.find(params[:id])
+    @project.update_attribute(:current_version_id, params[:current_version_id])
+  end
+
   private
 
   def project_params
